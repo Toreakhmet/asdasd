@@ -1,0 +1,63 @@
+header {
+  display: flex;
+  align-items: space-between;
+  justify-content: space-between;
+  padding: 35px;
+}
+
+header ul{
+  display: flex;
+  gap: 15px;
+}
+
+li{
+  list-style-type: none;
+}
+
+
+@media  (max-width: 450px) {
+
+  ul{
+    display: flex;
+    flex-direction: column;
+    color: red;
+    
+  }
+
+  .posts{
+    margin: 45px;
+  }
+
+
+
+
+
+}
+
+
+.posts{
+  border: 1px solid black;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  padding: 25px;
+}
+  
+
+main{
+  display: flex;
+
+  flex-direction: column;
+  gap: 15px;
+}
+.navbar {
+  position: fixed;
+  top: 0;
+  left: -150px;
+  width: 150px;
+  height: 100vh;
+  background: #333;
+  color: white;
+  transition: left 0.3s ease;
+}
