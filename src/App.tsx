@@ -1,49 +1,54 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
 
-interface Post{
-  id:number
-  title:string
-    body:string
+interface Post {
+  id: number;
+  title: string;
+  body: string;
 }
 
 function App() {
-  const [data, setData] = useState<Post[]>([]);
-  const [navbar,serNavnar]=useState<boolean>(false);
-  useEffect(() => {
+  const [posts,setPost]=useState<Post[]>([]);
+  const [navbar,setNavbar]=useState<boolean>(false);
+  const [added_data,setAdd]=useState<Post[]>([])
+
+  function Add(item:Post){
+    setAdd(prev=>[...prev,item])
+  }
+  useEffect(()=>{
     fetch("https://jsonplaceholder.typicode.com/posts")
-      .then(response => response.json())
-      .then(data => setData(data));
-  }, []);
+    .then(response=>response.json())
+    .then(response=>setPost(response))
+  })
 
   return (
+
     <div className="App">
-      <header className="App-header">
-        <h1>Sako</h1>
-        <ul>
-          <li>aspan</li>
-          <li>asfsa</li>
-          <li>dgsasg</li>
-          <li>dsgdg</li>
-          <li onClick={()=>serNavnar(prev=>!prev)}>open</li>
-        </ul>
-      </header>
-      <main>
-        {data.length > 0 &&
-          data.map(item => (
-            <div key={item.id} className='posts'>
-              <h3>{item.title}</h3>
-              <p>{item.body}</p>
+      <div onClick={()=>{setNavbar(prev=>!prev)}} className='center'>open</div>
+      {
+        posts.length > 0 && posts.map((item)=>(
+          <div className="posts" key={item.id}>
+            <h1>{item.title}</h1>
+            <p>{item.body}</p>
+            <button onClick={()=>{Add(item)}} >Add spisok</button>
+          </div>
+        ))
+      }
+      <div className="navbar" style={{left:navbar ? "0px" : "-150px"}}>
+        {
+          added_data.length > 0 && 
+          added_data.map((item)=>(
+            <div key={item.id}>
+              <p>{item.title}</p>
+            <h1>{item.body}</h1>
             </div>
           ))
         }
-
-      </main>
-      <div className="navbar" style={{left: navbar ? "0px" : "-150px"}}>
-
-      </div>
-
+      
     </div>
+    </div>
+
+    
   );
 }
 
